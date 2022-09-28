@@ -1,5 +1,5 @@
 plugins {
-    id 'java'
+    id 'application'
 }
 
 group 'dev.geocfu'
@@ -7,13 +7,17 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    maven {
+        url 'https://m2.dv8tion.net/releases'
+    }
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'net.dv8tion:JDA:5.0.0-alpha.20'
+    implementation 'com.sedmelluq:lavaplayer:1.3.78'
+    implementation 'io.github.cdimascio:dotenv-java:2.2.4'
+
+    runtimeOnly 'ch.qos.logback:logback-classic:1.4.1'
 }
 
-test {
-    useJUnitPlatform()
-}
+mainClassName = 'dev.geocfu.songster.Main'

@@ -1,2 +1,4 @@
-package dev.geocfu.songster.activities;public class ActivityProvider {
+package dev.geocfu.songster.activities;
+
+public class ActivityProvider {
 }
