@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>[%d{HH:mm:ss.SSS}] [%highlight(%-6level)] %msg%n</pattern>
-<!--            <pattern>[%d{HH:mm:ss.SSS}] [%highlight(%level)] (%boldGreen(%-15.-15logger{0})) %boldCyan(%-34.-34thread) %red(%10.10X{jda.shard}) %msg%n</pattern>-->
-        </encoder>
-    </appender>
+<!-- Display the logs in your console with the following format -->
+<!-- You can learn more about this here: https://logback.qos.ch/manual/layouts.html#ClassicPatternLayout -->
+<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+        <pattern>%d{HH:mm:ss.SSS} %boldCyan(%-34.-34thread) %red(%10.10X{jda.shard}) %boldGreen(%-15.-15logger{0}) %highlight(%-6level) %msg%n</pattern>
+    </encoder>
+</appender>
 
-    <root level="info">
-        <appender-ref ref="STDOUT" />
-    </root>
+<!-- Here you can set the base logger level. If DEBUG is too chatty for you, you can use INFO -->
+<!-- Possible options are: ALL, TRACE, DEBUG, INFO, WARN, ERROR, OFF -->
+<root level="INFO">
+    <appender-ref ref="STDOUT"/>
+</root>
 </configuration>

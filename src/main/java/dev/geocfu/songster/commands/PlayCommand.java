@@ -1,28 +1,37 @@
 package dev.geocfu.songster.commands;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+
 public class PlayCommand implements SlashCommand {
-    final static Logger logger = LoggerFactory.getLogger(PlayCommand.class);
+  static final Logger logger = LoggerFactory.getLogger(PlayCommand.class);
 
-    SlashCommandInteractionEvent event;
+  @Override
+  public String getName() {
+    return "play";
+  }
 
-    public PlayCommand(SlashCommandInteractionEvent event) {
-        this.event = event;
-    }
+  @Override
+  public String getDescription() {
+    return "Plays a song from the provided URL or adds it the playlist.";
+  }
 
-    public String name() {
-        return "play";
-    }
+  @Override
+  public ArrayList<OptionData> getOptions() {
+    ArrayList<OptionData> options = new ArrayList<>();
 
-    public String description() {
-        return "Plays a song from the provided URL or adds it the playlist.";
-    }
+    options.add(new OptionData(OptionType.STRING, "url", "The URL of the song", true));
 
-    public void execute() {
-        logger.info("executing");
-    }
+    return options;
+  }
 
+  @Override
+  public void execute(SlashCommandInteractionEvent event) {
+    logger.info("executing");
+  }
 }
