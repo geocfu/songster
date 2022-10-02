@@ -1,7 +1,7 @@
 package dev.geocfu.songster.commands;
 
-import dev.geocfu.songster.musicplayer.AudioPlayerProvider;
-import dev.geocfu.songster.musicplayer.GuildMusicManager;
+import dev.geocfu.songster.audioplayer.AudioPlayerProvider;
+import dev.geocfu.songster.audioplayer.GuildMusicManager;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.slf4j.Logger;
@@ -39,7 +39,7 @@ public class PauseCommand implements SlashCommand {
   /**
    * The main method that is going to be executed when the command has been summoned
    *
-   * @param event
+   * @param event SlashCommandInteractionEvent
    */
   @Override
   public void execute(SlashCommandInteractionEvent event) {

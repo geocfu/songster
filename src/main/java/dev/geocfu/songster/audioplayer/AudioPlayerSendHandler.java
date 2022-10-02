@@ -1,4 +1,4 @@
-package dev.geocfu.songster.musicplayer;
+package dev.geocfu.songster.audioplayer;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.playback.MutableAudioFrame;

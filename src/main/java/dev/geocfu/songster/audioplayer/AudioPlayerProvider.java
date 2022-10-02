@@ -1,4 +1,4 @@
-package dev.geocfu.songster.musicplayer;
+package dev.geocfu.songster.audioplayer;
 
 import net.dv8tion.jda.api.entities.Guild;
 

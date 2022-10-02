@@ -1,6 +1,6 @@
 package dev.geocfu.songster.commands;
 
-import dev.geocfu.songster.musicplayer.AudioPlayerProvider;
+import dev.geocfu.songster.audioplayer.AudioPlayerProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

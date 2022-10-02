@@ -1,4 +1,4 @@
-package dev.geocfu.songster.musicplayer;
+package dev.geocfu.songster.audioplayer;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
@@ -8,7 +8,6 @@ import net.dv8tion.jda.api.managers.AudioManager;
 
 public class GuildMusicManager {
   private final TrackScheduler trackScheduler;
-  private final AudioPlayerSendHandler audioPlayerSendHandler;
   private final DefaultAudioPlayerManager audioPlayerManager;
 
   public GuildMusicManager(Guild guild) {
@@ -20,10 +19,10 @@ public class GuildMusicManager {
     final AudioManager audioManager = guild.getAudioManager();
     this.trackScheduler = new TrackScheduler(audioPlayer, audioManager);
 
-    this.audioPlayerSendHandler = new AudioPlayerSendHandler(audioPlayer);
+    final AudioPlayerSendHandler audioPlayerSendHandler = new AudioPlayerSendHandler(audioPlayer);
 
     audioPlayer.addListener(trackScheduler);
-    audioManager.setSendingHandler(this.audioPlayerSendHandler);
+    audioManager.setSendingHandler(audioPlayerSendHandler);
   }
 
   public DefaultAudioPlayerManager getAudioPlayerManager() {
