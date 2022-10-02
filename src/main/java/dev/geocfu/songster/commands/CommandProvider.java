@@ -18,6 +18,7 @@ public class CommandProvider {
     slashCommands.add(new PlayCommand(audioPlayerProvider));
     slashCommands.add(new PauseCommand(audioPlayerProvider));
     slashCommands.add(new ResumeCommand(audioPlayerProvider));
+    slashCommands.add(new StopCommand(audioPlayerProvider));
     slashCommands.add(new SkipCommand(audioPlayerProvider));
     slashCommands.add(new QueueCommand(audioPlayerProvider));
   }
