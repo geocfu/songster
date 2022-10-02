@@ -9,17 +9,17 @@ import java.util.ArrayList;
 public class CommandProvider {
   private static final Logger logger = LoggerFactory.getLogger(CommandProvider.class);
   private final ArrayList<SlashCommand> slashCommands;
-  private final AudioPlayerProvider audioPlayerProvider;
 
   public CommandProvider() {
+    logger.info("Initializing applications Slash Commands");
     slashCommands = new ArrayList<>();
-    audioPlayerProvider = new AudioPlayerProvider();
 
+    final AudioPlayerProvider audioPlayerProvider = new AudioPlayerProvider();
     slashCommands.add(new PlayCommand(audioPlayerProvider));
     slashCommands.add(new PauseCommand(audioPlayerProvider));
     slashCommands.add(new ResumeCommand(audioPlayerProvider));
     slashCommands.add(new SkipCommand(audioPlayerProvider));
-    slashCommands.add(new PlayCommand(audioPlayerProvider));
+    slashCommands.add(new QueueCommand(audioPlayerProvider));
   }
 
   /**

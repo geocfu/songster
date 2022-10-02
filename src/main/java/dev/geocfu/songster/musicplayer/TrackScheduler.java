@@ -7,13 +7,12 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 import net.dv8tion.jda.api.managers.AudioManager;
 
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrackScheduler extends AudioEventAdapter {
   private final AudioPlayer player;
   private final AudioManager audioManager;
-  private final BlockingQueue<AudioTrack> queue;
+  private final LinkedBlockingQueue<AudioTrack> queue;
 
   public TrackScheduler(AudioPlayer player, AudioManager audioManager) {
     this.audioManager = audioManager;
@@ -59,5 +58,9 @@ public class TrackScheduler extends AudioEventAdapter {
       }
       nextTrack();
     }
+  }
+
+  public String getQueue() {
+    return queue.toString();
   }
 }
