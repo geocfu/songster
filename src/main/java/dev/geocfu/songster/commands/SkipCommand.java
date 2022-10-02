@@ -49,5 +49,7 @@ public class SkipCommand implements SlashCommand {
     final GuildMusicManager guildMusicManager = audioPlayerProvider.getGuildAudioPlayer(guild);
 
     guildMusicManager.getScheduler().nextTrack();
+
+    event.reply("Skipped currently playing song.").queue();
   }
 }

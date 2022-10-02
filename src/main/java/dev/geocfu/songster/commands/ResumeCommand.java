@@ -49,5 +49,7 @@ public class ResumeCommand implements SlashCommand {
     final GuildMusicManager guildMusicManager = audioPlayerProvider.getGuildAudioPlayer(guild);
 
     guildMusicManager.getScheduler().resume();
+
+    event.reply("Resumed last paused song.").queue();
   }
 }

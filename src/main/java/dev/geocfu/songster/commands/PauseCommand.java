@@ -49,5 +49,7 @@ public class PauseCommand implements SlashCommand {
     final GuildMusicManager guildMusicManager = audioPlayerProvider.getGuildAudioPlayer(guild);
 
     guildMusicManager.getScheduler().pause();
+
+    event.reply("Paused currently playing song.").queue();
   }
 }
