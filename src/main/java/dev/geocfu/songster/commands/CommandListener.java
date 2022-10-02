@@ -15,15 +15,16 @@ public class CommandListener extends ListenerAdapter {
   static final Logger logger = LoggerFactory.getLogger(CommandListener.class);
   private final ArrayList<SlashCommand> slashCommands = new ArrayList<>();
 
-  public CommandListener() {
-    initializeSlashCommands();
+  public CommandListener(ArrayList<SlashCommand> slashCommands) {
+    this.slashCommands.addAll(slashCommands);
   }
 
-  /** Initialize all the available commands of the application. */
-  private void initializeSlashCommands() {
-    slashCommands.add(new PlayCommand());
-  }
-
+  /**
+   * This method runs when the jda has finished initializing and is ready to accept events from a
+   * guild.
+   *
+   * @param event ReadyEvent
+   */
   @Override
   public void onReady(@Nonnull ReadyEvent event) {
     JDA jda = event.getJDA();
@@ -38,7 +39,7 @@ public class CommandListener extends ListenerAdapter {
   @Override
   public void onSlashCommandInteraction(@Nonnull SlashCommandInteractionEvent event) {
     if (!shouldReply(event)) return;
-    logger.info("Received slash command {}", event.getName());
+    logger.info("Received Slash Command \"{}\"", event.getName());
 
     String incomingCommand = event.getName();
 
@@ -63,7 +64,7 @@ public class CommandListener extends ListenerAdapter {
   }
 
   /**
-   * Registers Slash Commands.
+   * Registers all the application's Slash Commands.
    *
    * @param jda JDA
    */
