@@ -60,6 +60,9 @@ public class CommandListener extends ListenerAdapter {
     if (event.isFromGuild() && !event.getUser().isBot()) {
       return Boolean.TRUE;
     }
+    if (!event.getMember().getVoiceState().inAudioChannel()) {
+      event.reply("You must be inside a Voice Channel.").queue();
+    }
     return Boolean.FALSE;
   }
 

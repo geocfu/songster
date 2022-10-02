@@ -6,6 +6,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import dev.geocfu.songster.musicplayer.AudioPlayerProvider;
 import dev.geocfu.songster.musicplayer.GuildMusicManager;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -48,18 +49,14 @@ public class PlayCommand implements SlashCommand {
   public void execute(SlashCommandInteractionEvent event) {
     logger.info("Executing");
 
-    if (!event.getMember().getVoiceState().inAudioChannel()) {
-      event.reply("You must be inside a Voice Channel.").queue();
-      return;
-    }
-
     final AudioManager audioManager = event.getGuild().getAudioManager();
     final VoiceChannel channel = event.getMember().getVoiceState().getChannel().asVoiceChannel();
     final String url = event.getOption("url").getAsString();
 
-    GuildMusicManager guildMusicManager = audioPlayerProvider.getGuildAudioPlayer(event.getGuild());
+    final Guild guild = event.getGuild();
+    final GuildMusicManager guildMusicManager = audioPlayerProvider.getGuildAudioPlayer(guild);
 
-    audioPlayerProvider
+    guildMusicManager
         .getAudioPlayerManager()
         .loadItemOrdered(
             guildMusicManager,
@@ -94,7 +91,7 @@ public class PlayCommand implements SlashCommand {
       event.reply("Adding " + track.getInfo().title + " in queue.").queue();
 
       audioManager.openAudioConnection(voiceChannel);
-      guildMusicManager.getScheduler().queue(track);
+      guildMusicManager.getScheduler().play(track);
     }
 
     /**
@@ -107,7 +104,7 @@ public class PlayCommand implements SlashCommand {
       event.reply("Adding playlist " + playlist.getName() + " in queue.").queue();
 
       audioManager.openAudioConnection(voiceChannel);
-      guildMusicManager.getScheduler().queuePlaylist(playlist);
+      guildMusicManager.getScheduler().playPlaylist(playlist);
     }
 
     /** Called when there were no items found by the specified identifier. */

@@ -5,47 +5,58 @@ import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
+import net.dv8tion.jda.api.managers.AudioManager;
 
-import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrackScheduler extends AudioEventAdapter {
   private final AudioPlayer player;
+  private final AudioManager audioManager;
   private final BlockingQueue<AudioTrack> queue;
 
-  public TrackScheduler(AudioPlayer player) {
+  public TrackScheduler(AudioPlayer player, AudioManager audioManager) {
+    this.audioManager = audioManager;
     this.player = player;
     this.queue = new LinkedBlockingQueue<>();
   }
 
-  public void queue(AudioTrack track) {
+  public void play(AudioTrack track) {
     if (!player.startTrack(track, true)) {
       queue.offer(track);
     }
   }
 
-  public void queuePlaylist(AudioPlaylist playlist) {
-    final ArrayList<AudioTrack> tracks = (ArrayList<AudioTrack>) playlist.getTracks();
+  public void play() {
+    player.startTrack(queue.poll(), true);
+  }
 
-    final AudioTrack firstTrack = tracks.remove(0);
-    queue(firstTrack);
-    queue.addAll(tracks);
+  public void playPlaylist(AudioPlaylist playlist) {
+    queue.addAll(playlist.getTracks());
+    play();
   }
 
   public void nextTrack() {
-    player.startTrack(queue.poll(), false);
+    if (!player.startTrack(queue.poll(), false)) {
+      audioManager.closeAudioConnection();
+    }
   }
 
-  @Override
-  public void onPlayerPause(AudioPlayer player) {}
+  public void pause() {
+    player.setPaused(Boolean.TRUE);
+  }
 
-  @Override
-  public void onPlayerResume(AudioPlayer player) {}
+  public void resume() {
+    player.setPaused(Boolean.FALSE);
+  }
 
   @Override
   public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
     if (endReason.mayStartNext) {
+      if (queue.isEmpty()) {
+        audioManager.closeAudioConnection();
+        return;
+      }
       nextTrack();
     }
   }
