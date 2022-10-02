@@ -49,6 +49,12 @@ public class TrackScheduler extends AudioEventAdapter {
     player.setPaused(Boolean.FALSE);
   }
 
+  public void stop() {
+    player.stopTrack();
+    queue.clear();
+    audioManager.closeAudioConnection();
+  }
+
   @Override
   public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
     if (endReason.mayStartNext) {
